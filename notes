@@ -1,0 +1,42 @@
+config/development.json => tout est bon
+
+
+
+new NGROK => Il faut remettre 2 fois le lien dans face dev et rajouter UNIQUEMENT le webhook message et refaire le lien avec NLP wit
+
+Lien vers le messenger de SongAnalysis : m.me/102331838081934
+
+Je recevais message en double car j'avais activé un abonnement à un webhook non nécessaire. H'ai changé pour me retrouver avec uniquement un seul webhook (message).
+
+
+
+
+Pour créer les intents de Wit :
+Which artist sang this song ?
+--> Intent global = artist et this song = wit/creative_work:song
+
+
+What are the albums made by this singer ?
+--> Intent global = album et this singer = wit/creative_work:singer
+
+
+-------> Il faut différencier l'intent global et les informations. Pour l'intent global, il ne faut pas mettre de wit/...   Les informations on les surligne, l'intent non.
+
+Infos = entities
+But = intent
+
+
+
+
+
+Pas de modifs lorsque je code <=> j'ai lancé node et pas nodemon.
+
+
+
+
+
+
+
+
+IL NE FALLAIT PAS SUPPRIMER CREATIVE_WORK, JE DOIS TOUT RELABELISER
+
