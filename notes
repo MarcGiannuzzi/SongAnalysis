@@ -40,3 +40,43 @@ Pas de modifs lorsque je code <=> j'ai lancé node et pas nodemon.
 
 IL NE FALLAIT PAS SUPPRIMER CREATIVE_WORK, JE DOIS TOUT RELABELISER
 
+
+
+
+PROMISES : 
+Certaines fonctions asynchrones ne gère pas bien les erreurs et leurs callback s'ils existent. Les promises sont faites pour résoudre ce problème.
+"You cannot use try-catch statements to handle exceptions thrown asynchronously, as the function has "returned" before any exception is thrown. You should instead use the promise.then and promise.catch methods, which represent the asynchronous equivalent of the try-catch statement."
+
+Les promises sont juste un sorte de try catch pour les fonctions asynchrones.
+
+
+
+
+
+
+
+ASYNC AWAIT :
+On peut utiliser await juste devant un terme, que lorsqu'on est dans une fonction async. 
+Lorsque JS passe sur la ligne du await1, ça met la fonction async1 en stop, sort de cette fonction, continue sa vie sur les autres fonctions (LIGNE X) puis REVIENT juste après le await1 de la fonction async pour executer c qu'il y a derriere le await1 LORSQUE y a enfin un résultat pour le await1 (var x = await promise ======> x passe de promise<pending> au type de la valeur qu'on retrouve normalement en paramètre de then). En fait c'est comme si on utilisait l'argument du then de la promise directement après qu'elle soit finies.
+
+
+Pour faire en sorte d'attendre la la fonction asynchrone donne un résultat (attendre sur le await1, rendre l'asynchrone synchrone), on peut faire rajouter un await2 dans la fonction async2 dans laquelle on se situe au LIGNE X  ===> cela force à attendre que await1 soit fini (car pendant ce temps la await2 n'est pas fini, il ne sera fini que lorsque await1 sera fini). Ainsi lorsque await1 est fini, le await2 aussi et on peut executer ce qu'il y a derriere la ligne X.
+
+
+En fait, faut imaginer une pile d'appels de fonctions.Lorsqu'on croise un async await, on redescend d'un etage. On peut stopper la descente par un then.
+Dans mon exemple la fonction async2 retourne une promise et la fonction juste en dessous attend son return avec un then.
+
+
+
+
+
+!!! La portée maximale dd'une variable est le bloc (let) ou fonction dans le/aquelle la variable se trouve. 
+Je voulais avoir mon result_main_getter en utilisant .then((data) => result_main_getter = data)  MAIS ça ne marchait pas parce mon result_main_getter ne changeait pas.
+
+
+
+
+
+
+WIT AI:
+On a une bonne précision mais un faible recall => wit est très souvent correct dans ses choix, mais il trouve rarement les entities. Il faut agugmenter le recall

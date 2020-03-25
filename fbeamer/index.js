@@ -105,7 +105,7 @@ class FBeamer {
         "text": text
       }
     };
-    console.log("Payload  : ", payload)
+    //console.log("Payload  : ", payload)
   
     return axios({
       method:'post',

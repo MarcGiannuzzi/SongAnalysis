@@ -34,27 +34,21 @@ server.post('/', (request, response) => {
     console.log("POST request body entry messaging  : ")
     return FB.incoming(request, response, messaging => {
       if(messaging){
-        console.log("\nMessaging : \n", messaging)
+        //console.log("\nMessaging : \n", messaging)
         const userData = FB.messageHandler(messaging);
-        var axios_result = FB.sendMessage("RESPONSE", userData.sender, "Avoue c'est lourd :)");
-        axios_result.then(res => console.log("Result axios : ", "Axios OK")).catch(error => console.log("Error axios:", error))
+        
 
 
         if(messaging.message.nlp.entities){
-          var all_entities_from_message = message_analyer.extractAllEntities(messaging.message.nlp.entities);
-          console.log(all_entities_from_message)
-          //message_analyer.displayAllEntities(all_entities_from_message)
+          var all_entities_and_intent = message_analyer.extractAllEntities(messaging.message.nlp.entities);
           
-  
-  
-          var artist = all_entities_from_message[0]['entity_value']
-          var song = all_entities_from_message[1]['entity_value']
-          musicxmatch.getLyrics(artist, song).then((data) => FB.sendMessage("RESPONSE", userData.sender, data)).then((d) => console.log("NEW AXIOS OK")).catch((err) => console.log(err.response))  
+          musicxmatch.mainGetter(all_entities_and_intent).then((result_data_musicxmatch) => FB.sendMessage("RESPONSE", userData.sender, result_data_musicxmatch)).catch((error) => console.log("Errrrrror man : ", error))
+          
+
+          
         }
         
       }
-      //data.message.body.lyrics.lyrics_body)
-
-      //console.log(typeof(data))).catch((error) => console.log(error))
+      
     });
   });

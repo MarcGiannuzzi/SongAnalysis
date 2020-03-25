@@ -6,7 +6,7 @@ const extractAllEntities = (entities) => {
         entity = keys_entities[i]
         // console.log("Entity : ", entity)
         // console.log(entities[entity])
-        if(entities[entity][0].confidence > 0.5){
+        if(entities[entity][0].confidence > 0.2){
             result.push({"entity_name": entity, "entity_value": entities[entity][0].value});
         }
     }
@@ -17,8 +17,8 @@ const extractAllEntities = (entities) => {
 
 
 const displayAllEntities = function(entities){
-    for(entity in all_entities_from_message){
-        console.log(all_entities_from_message[entity])
+    for(entity in all_entities_and_intent){
+        console.log(all_entities_and_intent[entity])
       }
 }
 
@@ -36,32 +36,30 @@ const extractEntity = (nlp, entity) => {
 }
 
 
-const f = function(nlpData) {
-    return new Promise((resolve, reject) => {
-        let intent = extractEntity(nlpData, 'intent');
-        if(intent){
-            let singer = extractEntity(nlpData, 'singer')
-            let releaseYear = extractEntity(nlpData, 'releaseYear')
-
-            try{
-                let singerData =  getsingerData(singer, releaseYear)
-                resolve(response)
-            }
-            catch(error){
-                reject(error)
-            }
+const getEntityValue = function(entity_name, entities){
+    var entity_value = null
+    for(let i = 0; i < entities.length; i++){
+        if(entities[i]['entity_name'] === entity_name){
+            entity_value = entities[i]['entity_value']
         }
-        else{
-            resolve("I am not sure I understand you...")
-        }
-        resolve(intent);
-    });
+    }
+    return entity_value
 }
 
+
+const getEntitiesNames = function(all_entities){
+    var entities_names = []
+    for(let i = 0; i < all_entities.length; i++){
+        entities_names.push(all_entities[i]['entity_name'])
+    }
+    return entities_names
+}
 
 
 module.exports = {
     extractAllEntities:extractAllEntities, 
     extractEntity:extractEntity, 
-    displayAllEntities:displayAllEntities
+    displayAllEntities:displayAllEntities,
+    getEntityValue:getEntityValue, 
+    getEntitiesNames:getEntitiesNames
 }
